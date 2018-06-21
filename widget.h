@@ -4,6 +4,8 @@
 #include <QWidget>
 
 #include <dbscan.h>
+#include <agnes.h>
+#include <diana.h>
 
 namespace Ui {
 class Widget;
@@ -19,27 +21,32 @@ public:
 
 private slots:
 
-
-    void on_textEdit_eps_textChanged();
-
-    void on_textEdit_minPts_textChanged();
-
-    void showResult();
-
     void on_pushButton_clicked();
 
-
-
     void on_pushButton_openFile_clicked();
+
+    void on_comboBox_algor_currentTextChanged(const QString &arg1);
+
+    void on_lineEdit_num_textChanged(const QString &arg1);
+
+    void on_lineEdit_minPts_textChanged(const QString &arg1);
+
+    void on_lineEdit_eps_textChanged(const QString &arg1);
 
 private:
     Ui::Widget *ui;
 
     DBSCAN *_dbscan;
 
+    AGNES *_agnes;
+
+    DIANA *_diana;
+
     double _eps;
 
     int _minPts;
+
+    int _clusterNum;
 
 signals:
     void textChanged();

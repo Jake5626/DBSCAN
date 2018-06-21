@@ -24,9 +24,7 @@ bool DBSCAN::setPointData(string filename){
     for(uint i = 0; i< data.size(); i++){
         _pointData.insert(pair<int,point>(i,data.at(i)));
     }
-    if(ok){
-        return true;
-    }else return false;
+    return ok;
 }
 
 void DBSCAN::setConfig(int minPts,double eps){
@@ -62,7 +60,7 @@ void DBSCAN::setCorePoints(){
         }
     }
 
-    cout<<"core points num:"<<_corepoints.size()<<" border points num:"<<_borderpoints.size()<<endl;
+    //cout<<"core points num:"<<_corepoints.size()<<" border points num:"<<_borderpoints.size()<<endl;
     cluster(_eps);
 
 }
@@ -73,7 +71,7 @@ void DBSCAN::cluster(double eps){
     cluster.empty();
     while(!_corepoints.empty()){
         int clusterNum = 0;
-        cout<<"cluster"<<curLabel<<endl;
+        //cout<<"cluster"<<curLabel<<endl;
         cluster.clear();
         if(cluster.empty()){
             point core1 = _corepoints.begin()->second;
@@ -95,7 +93,7 @@ void DBSCAN::cluster(double eps){
                     //cout<<"item1:"<<item1.index<<" item2:"<<item2.index<<" distance:"<<dist<<endl;
                     //if((cluster.find(item2.index) == cluster.end())){
                         cluster.insert(pair<int,point>(clusterNum,item2));
-                        cout<<"insert:"<<item2.index<<endl;
+                        //cout<<"insert:"<<item2.index<<endl;
                         clusterNum++;
                     //}
                     if(_corepoints.find(item2.index) != _corepoints.end()){
@@ -105,7 +103,7 @@ void DBSCAN::cluster(double eps){
                 //else cout<<"cancel distance:"<<"item1:"<<item1.index<<" item2:"<<item2.index<<" distance:"<<dist<<endl;
             }
         }
-        cout<<"cluster"<<curLabel<<":"<<cluster.size()<<endl;
+        //cout<<"cluster"<<curLabel<<":"<<cluster.size()<<endl;
         map<int,point>::iterator it;
         for(it = cluster.begin(); it!= cluster.end();it++){
             ((_pointData.find((it->second).index))->second).targetLabel = curLabel;
@@ -133,9 +131,9 @@ void DBSCAN::cluster(double eps){
                 minDist = dist;
                 closetCpt = core;
             }
-            cout<<"border points:"<<border.index<<" core points:"<<core.index<<" distance:"<<dist<<endl;
+            //cout<<"border points:"<<border.index<<" core points:"<<core.index<<" distance:"<<dist<<endl;
         }
-        cout<<"core points:"<<closetCpt.index<<" border points:"<<border.index<<endl;
+        //cout<<"core points:"<<closetCpt.index<<" border points:"<<border.index<<endl;
         if(minDist<1){
             _pointData.at(border.index).targetLabel = closetCpt.targetLabel;
         }else{

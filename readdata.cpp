@@ -1,3 +1,11 @@
+/**
+  * @brief use cfile to read data file
+  * @param readData.cpp
+  * @author Jake Zheng
+  * @date 2018-6
+  */
+//-----------------------------------------
+
 #include "readdata.h"
 #include <iostream>
 #include <sstream>
@@ -58,6 +66,8 @@ void readData::toStdStrData(){
         _stdStringData.push_back(_data.substr(0, backIndex));
         _data = _data.substr(backIndex+1);
     }
+    //cout<<"remain data:"<<_data;
+    _stdStringData.push_back(_data);
 
     setStdData();
 }
@@ -81,6 +91,28 @@ void readData::setStdData(){
             item.label = 2;
         }
         _stdData.push_back(item);
+    }
+    double maxX = 0,maxY = 0,maxZ = 0,maxM = 0;
+    for(int i = 0; i < _stdData.size(); i++){
+        if(_stdData.at(i).x > maxX){
+            maxX = _stdData.at(i).x;
+        }
+        if(_stdData.at(i).y > maxY){
+            maxY = _stdData.at(i).y;
+        }
+        if(_stdData.at(i).z > maxZ){
+            maxZ = _stdData.at(i).z;
+        }
+        if(_stdData.at(i).m > maxM){
+            maxM = _stdData.at(i).m;
+        }
+    }
+
+    for(int i = 0; i < _stdData.size(); i++){
+        _stdData.at(i).x = _stdData.at(i).x/maxX;
+        _stdData.at(i).y = _stdData.at(i).y/maxY;
+        _stdData.at(i).z = _stdData.at(i).z/maxZ;
+        _stdData.at(i).m = _stdData.at(i).m/maxM;
     }
 }
 

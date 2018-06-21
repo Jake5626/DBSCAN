@@ -26,10 +26,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         widget.cpp \
     readdata.cpp \
-    dbscan.cpp
+    dbscan.cpp \
+    agnes.cpp \
+    diana.cpp
 
 HEADERS  += widget.h \
     readdata.h \
-    dbscan.h
+    dbscan.h \
+    agnes.h \
+    diana.h
 
 FORMS    += widget.ui
